@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+    MyBatis Mapper (복잡한 동적 쿼리 / 통계성 쿼리 시 활용)
+    단순 CRUD 는 JPA Repository 사용
+-->
+<mapper namespace="com.example.egov.mapper.SampleMapper">
+
+    <resultMap id="sampleResultMap" type="com.example.egov.web.dto.SampleResponseDto">
+        <id  property="sampleId"  column="SAMPLE_ID"/>
+        <result property="sj"       column="SJ"/>
+        <result property="cn"       column="CN"/>
+        <result property="wrterNm"  column="WRTER_NM"/>
+        <result property="useAt"    column="USE_AT"/>
+        <result property="inqireCo" column="INQIRE_CO"/>
+        <result property="regDt"    column="REG_DT"/>
+        <result property="rgtr"     column="RGTR"/>
+        <result property="mdfcnDt"  column="MDFCN_DT"/>
+        <result property="mdfr"     column="MDFR"/>
+    </resultMap>
+
+    <!-- 목록 조회 (동적 쿼리) -->
+    <select id="selectSampleList" resultMap="sampleResultMap">
+        SELECT SAMPLE_ID, SJ, CN, WRTER_NM, USE_AT, INQIRE_CO,
+               REG_DT, RGTR, MDFCN_DT, MDFR
+          FROM TB_SAMPLE
+         WHERE USE_AT = 'Y'
+        <if test="sj != null and sj != ''">
+           AND SJ LIKE '%' || #{sj} || '%'
+        </if>
+         ORDER BY REG_DT DESC
+    </select>
+
+    <!-- 총 건수 -->
+    <select id="selectSampleListCnt" resultType="int">
+        SELECT COUNT(*)
+          FROM TB_SAMPLE
+         WHERE USE_AT = 'Y'
+        <if test="sj != null and sj != ''">
+           AND SJ LIKE '%' || #{sj} || '%'
+        </if>
+    </select>
+
+</mapper>

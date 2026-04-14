@@ -1,0 +1,14 @@
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+.idea/
+*.iws *.iml *.ipr
+out/
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+!libs/*.jar
+logs/ *.log
+.DS_Store Thumbs.db
+application-prod.yml
+application-secret.yml
+*.env
