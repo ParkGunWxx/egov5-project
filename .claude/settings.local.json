@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find \"D:\\\\claude\\\\project\\\\egov5-project/src/main/resources\" -name \"application*.yml\" -exec grep -l \"port\" {} \\\\;)",
+      "Bash(find \"D:\\\\claude\\\\project\\\\egov5-project/src/main/resources\" -type f \\\\\\( -name \"*.yml\" -o -name \"*.yaml\" \\\\\\) -exec grep -H \"server:\" {} \\\\;)"
+    ]
+  }
+}

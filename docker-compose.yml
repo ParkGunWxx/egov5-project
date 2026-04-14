@@ -1,0 +1,43 @@
+services:
+
+  # ============================================================
+  # Oracle Database (23c Free - 개발/테스트용)
+  # ============================================================
+  oracle-db:
+    image: gvenzl/oracle-free:23-slim
+    container_name: egov5-oracle
+    environment:
+      ORACLE_PASSWORD: oracle123       # SYS/SYSTEM 패스워드
+      APP_USER: WASISSGA               # 앱 전용 유저 자동 생성
+      APP_USER_PASSWORD: agssisaw2021! # 앱 유저 패스워드
+    ports:
+      - "1521:1521"
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+      - ./src/main/resources/sql/ddl.sql:/container-entrypoint-initdb.d/01-ddl.sql
+    healthcheck:
+      test: ["CMD-SHELL", "healthcheck.sh"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 120s
+
+  # ============================================================
+  # Spring Boot Application
+  # ============================================================
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: egov5-app
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - "8080:8080"
+    depends_on:
+      oracle-db:
+        condition: service_healthy
+    restart: on-failure
+
+volumes:
+  oracle-data:
