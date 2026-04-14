@@ -1,0 +1,79 @@
+spring:
+  profiles:
+    active: local
+
+  # ====================================
+  # JPA 설정
+  # ====================================
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.OracleDialect
+        format_sql: true
+        use_sql_comments: true
+        default_batch_fetch_size: 100
+    show-sql: true
+
+  # ====================================
+  # MyBatis 설정 (eGovFrame Access/Security DAO용)
+  # ====================================
+  mybatis:
+    mapper-locations: classpath:egovframework/mapper/**/*.xml
+    configuration:
+      map-underscore-to-camel-case: true
+      default-fetch-size: 100
+      default-statement-timeout: 30
+
+  # ====================================
+  # MVC 설정
+  # ====================================
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+# ====================================
+# eGovFrame 5.0 Boot Starter 설정
+# ====================================
+egovframe:
+  # Crypto Starter 설정
+  crypto:
+    algorithm: SHA-256          # 단방향 해시: SHA-256 / 양방향: ARIA
+    aria:
+      key: EgovFrameBootKey16!  # ARIA 키 (16/24/32바이트)
+      iv: EgovFrameBootIV!      # ARIA IV (16바이트)
+
+  # Access Starter 설정
+  access:
+    enabled: true
+
+  # Security Starter 설정
+  security:
+    enabled: true
+    login:
+      url: /login
+      success-url: /
+      failure-url: /login?error
+    logout:
+      url: /logout
+      success-url: /login
+    permit-all-patterns:
+      - /
+      - /login
+      - /api/public/**
+      - /css/**
+      - /js/**
+      - /images/**
+
+# ====================================
+# 로깅 설정
+# ====================================
+logging:
+  level:
+    root: INFO
+    com.example.egov: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql: TRACE
+    org.egovframe: INFO

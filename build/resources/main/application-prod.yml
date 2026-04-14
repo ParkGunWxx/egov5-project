@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@//prod-db-host:1521/PRODDB
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: oracle.jdbc.OracleDriver
+    hikari:
+      pool-name: ProdHikariPool
+      minimum-idle: 10
+      maximum-pool-size: 50
+      connection-test-query: SELECT 1 FROM DUAL
+      auto-commit: false
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+
+logging:
+  level:
+    root: WARN
+    com.example.egov: INFO
