@@ -44,7 +44,7 @@ public class SampleServiceImpl implements SampleService {
             ? sampleRepository.findBySjContainingAndUseAt(sj, "Y", pageable)
             : sampleRepository.findActiveNative(pageable);
         return page.map(SampleResponseDto::from);
-//        테스트용 주석
+//        테스트용 주석ㅁㄴㅇㅁㄴㅇ
     }
 
     @Override
