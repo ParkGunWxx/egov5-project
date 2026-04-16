@@ -1,0 +1,31 @@
+# ====================================
+# 로컬 개발 환경 (Oracle)
+# ====================================
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@175.45.223.77:15210:issga
+    # Service Name 방식: jdbc:oracle:thin:@//localhost:1521/XEPDB1
+    username: WASISSGA
+    password: agssisaw2021!
+    driver-class-name: oracle.jdbc.OracleDriver
+
+    hikari:
+      pool-name: LocalHikariPool
+      minimum-idle: 5
+      maximum-pool-size: 20
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1 FROM DUAL
+      auto-commit: false
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+logging:
+  level:
+    com.example.egov: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.egovframe: DEBUG

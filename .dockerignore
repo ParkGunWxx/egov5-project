@@ -1,0 +1,20 @@
+# Gradle 빌드 캐시 (Docker 내부에서 다시 빌드)
+.gradle/
+build/
+
+# IDE 설정
+.idea/
+*.iml
+.vscode/
+
+# Git
+.git/
+.gitignore
+
+# 로컬 환경 설정
+src/main/resources/application-local.yml
+
+# 기타
+*.log
+README.md
+docker-compose.yml
